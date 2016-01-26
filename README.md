@@ -21,9 +21,10 @@ import { promiseMiddleware, pendingReducer, isPending } from "redux-pending";
 // Add the promise middleware to your store
 const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 
-// Add your `pending` reducer. Important the name is `pending` otherwise, see the `isPending` method.
 const reducers = combineReducers({
-    pending: loadingReducer,
+    // Add your `pending` reducer. Important the name is `pending` otherwise, see the `isPending` method.
+    pending: pendingReducer,
+
     todos: (state = { todos: [] }, action) => {
         switch(action.type) {
             case 'FETCH_TODOS':
@@ -78,15 +79,16 @@ class App extends Component {
 }
 
 // Now we connect our state and actions to the component
-connect({
-    // Add a prop which tells our component if our promise is pending or not
-    todosLoading: isPending(fetchTodos)
-}, {
+connect(state => ({
+    // Add a prop which tells our component if our promise is pending or not.
+    // We get our selector returned from `isPending` and we pass in our state.
+    todosLoading: isPending(FETCH_TODOS)(state)
+}), {
     fetchTodos
 })(App);
 ```
 
-`redux-pending` works particularly well with `redux-actions`.
+Finally, if you're that way inclined, `redux-pending` works particularly well with [`redux-actions`](http://github.com/acdlite/redux-actions).
 
 ```js
 const FETCH_TODOS = 'FETCH_TODOS';
@@ -102,8 +104,16 @@ handleAction(FETCH_TODOS, {
 ```
 
 ## API
-#### `isPending( actionType [, propName ] )`
-Selector function will return whether or not the promise for an action of type `actionType` is currently executing or not. The `propName` parameter allows you to set the name of the property on the state that your `pendingReducer` is stored under. Defaults to `pending`.
+The following are exported from `redux-pending`.
+
+#### `isPending( actionType:String [, propName:String ] )`
+Returns selector function that when passed the current state will return whether or not the promise for an action of type `actionType` is currently executing or not. The `propName` parameter allows you to set the name of the property on the state that your `pendingReducer` is stored under. Defaults to `pending`.
+
+Example:
+
+```js
+isPending('FETCH')(state)
+```
 
 #### `promiseMiddleware`
 The promise middleware function for use with Redux's `combineMiddleware` function.
@@ -111,7 +121,7 @@ The promise middleware function for use with Redux's `combineMiddleware` functio
 #### `pendingReducer`
 The reducer to be added to your store via `combineReducers`.
 
-##### Credits & License
+## Credits & License
 Author: Adrian Cooney <cooney.adrian@gmail.com>
 
 License: MIT
