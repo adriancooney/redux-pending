@@ -1,0 +1,38 @@
+{
+  "name": "redux-pending",
+  "version": "0.0.0",
+  "description": "Redux promise middleware with pending state.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register test",
+    "build": "babel -d lib src",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adriancooney/redux-pending.git"
+  },
+  "keywords": [
+    "redux",
+    "pending",
+    "middleware",
+    "promise"
+  ],
+  "author": "Adrian Cooney <cooney.adrian@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adriancooney/redux-pending/issues"
+  },
+  "homepage": "https://github.com/adriancooney/redux-pending#readme",
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-cli": "^6.4.5",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "mocha": "^2.3.4"
+  },
+  "dependencies": {
+    "flux-standard-action": "^0.6.0"
+  }
+}
