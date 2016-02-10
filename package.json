@@ -1,6 +1,6 @@
 {
   "name": "redux-pending",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Redux promise middleware with pending state.",
   "main": "lib/index.js",
   "scripts": {
@@ -12,6 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/adriancooney/redux-pending.git"
   },
+  "files": ["lib"],
   "keywords": [
     "redux",
     "pending",
